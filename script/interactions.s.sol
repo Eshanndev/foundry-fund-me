@@ -15,7 +15,7 @@ contract FundFundMe is Script{
     
     FundMe (payable(mostRecentDeployed)).Fund{value:SEND_VALUE}();
     
-    console.log("Funded FundMe with %s", SEND_VALUE);
+    
   }
 
   function run() external {
