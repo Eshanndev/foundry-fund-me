@@ -21,24 +21,24 @@ contract FundFundMe is Script {
     }
 }
 
-contract WithdrawFundMe is Script {
-    function withdrawFundMe(address mostRecentDeployed) public {
-        FundMe(payable(mostRecentDeployed)).withdraw();
+// contract WithdrawFundMe is Script {
+//     function withdrawFundMe(address mostRecentDeployed) public {
+//         FundMe(payable(mostRecentDeployed)).withdraw();
 
-    }
+//     }
 
-    function getOwner()public returns(address){
-      HelperConfig helperConfig = new HelperConfig();
-      HelperConfig.networkConfig memory config = helperConfig.getActiveNetworkConfig();
-      return config.account;
-    }
+//     function getOwner()public returns(address){
+//       HelperConfig helperConfig = new HelperConfig();
+//       HelperConfig.networkConfig memory config = helperConfig.getActiveNetworkConfig();
+//       return config.account;
+//     }
 
-    function run() external {
-        //withdraw function only can be called by owner
-        address owner = getOwner();
-        address mostRecentDeployed = DevOpsTools.get_most_recent_deployment("FundMe", block.chainid);
-        vm.startBroadcast(owner);
-        withdrawFundMe(mostRecentDeployed);
-        vm.stopBroadcast();
-    }
-}
+//     function run() external {
+//         //withdraw function only can be called by owner
+//         address owner = getOwner();
+//         address mostRecentDeployed = DevOpsTools.get_most_recent_deployment("FundMe", block.chainid);
+//         vm.startBroadcast(owner);
+//         withdrawFundMe(mostRecentDeployed);
+//         vm.stopBroadcast();
+//     }
+//}

@@ -5,9 +5,12 @@ import "forge-std/Test.sol";
 import "forge-std/console.sol";
 import {FundMe} from "../../src/FundMe.sol";
 import {DeployFundMe} from "../../script/DeployFundMe.sol";
+import {HelperConfig} from "../../script/HelperConfig.s.sol";
 
 contract TestFundMe is Test {
     DeployFundMe deployFundMe = new DeployFundMe();
+    HelperConfig helperConfig = new HelperConfig();
+    address account;
     FundMe fundMe;
 
     address USER = makeAddr("user");
@@ -16,6 +19,9 @@ contract TestFundMe is Test {
     uint256 STARTING_BALANCE = 100 ether;
 
     function setUp() external {
+        HelperConfig.networkConfig memory config = helperConfig.getActiveNetworkConfig();
+        account = config.account;
+
         fundMe = deployFundMe.run();
         vm.deal(USER, STARTING_BALANCE);
     }
@@ -29,7 +35,7 @@ contract TestFundMe is Test {
 
     function testOwner() public view {
         address owner = fundMe.getOwner();
-        assertEq(owner, msg.sender);
+        assertEq(owner, account);
     }
 
     function testFundMe_PriceFeedIsAccurate() public view {
